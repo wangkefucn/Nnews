@@ -37,7 +37,10 @@
 - 圆角：卡片=16rpx，小元素=8rpx
 
 ### 图标资源
-**重要**：微信小程序不支持 lucide-react，所有图标我已经导出为SVG，位于 `/exports/icons/` 目录：
+**重要**：微信小程序不支持 lucide-react，所有图标已经准备好：
+
+#### SVG源文件（参考用）
+位于 `/exports/icons/` 目录：
 - `tabbar-home.svg` - 首页图标
 - `tabbar-category.svg` - 分类图标
 - `tabbar-audio.svg` - 音频图标
@@ -47,7 +50,27 @@
 - `star-filled.svg` - 已收藏星标
 - `play.svg` / `pause.svg` - 播放/暂停
 
-**你需要**：将这些SVG转换为PNG图片（灰色版#9ca3af + 深色版#1e293b），放在小程序的 `/images/tabbar/` 目录。
+#### PNG图标（直接使用）
+**已转换完成**，位于 `/exports/icons-png/` 目录：
+
+**TabBar图标（每个图标2个版本）：**
+- `tabbar-home-gray.png` / `tabbar-home-dark.png` - 首页（灰色#9ca3af / 深色#1e293b）
+- `tabbar-category-gray.png` / `tabbar-category-dark.png` - 分类
+- `tabbar-audio-gray.png` / `tabbar-audio-dark.png` - 音频
+- `tabbar-settings-gray.png` / `tabbar-settings-dark.png` - 设置
+
+**其他功能图标：**
+- `arrow-left.png` - 返回箭头（深色版）
+- `star-outline.png` / `star-filled.png` - 收藏星标
+- `play.png` / `pause.png` - 播放/暂停
+
+**图标规格**：
+- 尺寸：144×144px（微信小程序推荐@3x）
+- 格式：PNG-24，透明背景
+- 颜色：灰色版 #9ca3af，深色版 #1e293b
+
+**使用方法**：
+在小程序中，将PNG图标复制到 `/images/tabbar/` 目录使用。
 
 ---
 
@@ -66,6 +89,27 @@
 ---
 
 ## 🎬 启动页动画（重要！）
+
+### Logo 设计说明
+**最新版本（v2.0）：中国书法泼墨风格**
+
+Logo文件位于 `/exports/logo-dark.svg` 和 `/exports/logo-light.svg`
+
+**设计特点**：
+- 🖌️ 粗壮书法笔画（6-10px），有力量感
+- 🔵 蓝色渐变斜杠（#1e40af → #60a5fa），象征AI科技
+- 💧 飞白效果和墨点，书法写意风格
+- 🔴 右下角红色印章点缀，中国传统元素
+- 尺寸：120×120px（建议使用48px以上才能展现细节）
+
+**在小程序中使用**：
+1. 将SVG转换为PNG（深色版和浅色版）
+2. 深色版用于浅色背景，浅色版用于深色背景
+3. 启动页建议尺寸：192rpx × 192rpx（96px）
+
+详细设计说明请参考：`/exports/LOGO_CALLIGRAPHY_GUIDE.md`
+
+### 启动页动画时间轴
 
 时间轴：总共3.8秒
 1. **0-1.2s**：大Logo "N" 淡入+缩放+发光
@@ -167,16 +211,6 @@
   font-weight: 300;
 }
 ```
-
----
-
-## 🎨 Logo使用
-
-Logo SVG已准备好：`/exports/logo-dark.svg`（深色版）、`/exports/logo-light.svg`（浅色版）
-
-**使用场景**：
-- 启动页：超大尺寸（400rpx x 400rpx），浅色版
-- 设置页底部：中等尺寸（64rpx x 64rpx），深色版
 
 ---
 
