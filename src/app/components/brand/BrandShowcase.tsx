@@ -4,95 +4,126 @@ import { AppIcon } from './AppIcon';
 
 export function BrandShowcase() {
   return (
-    <div className="w-full min-h-screen bg-slate-50 p-8 overflow-y-auto pb-32">
-      <div className="max-w-4xl mx-auto space-y-12">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">N前线 品牌视觉系统</h1>
-          <p className="text-slate-600">Brand Identity System</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-8">
+      <div className="max-w-6xl mx-auto space-y-16">
+        
+        {/* 品牌标题 */}
+        <div className="text-center space-y-4">
+          <h1 className="text-5xl font-bold text-slate-900">N前线 品牌视觉系统</h1>
+          <p className="text-xl text-gray-600">现代时尚 · AI动感 · 专业克制</p>
         </div>
 
-        {/* Section 1: App Icon */}
-        <section className="bg-white rounded-2xl shadow-md p-8">
-          <h2 className="text-xl font-semibold text-slate-900 mb-6 pb-3 border-b border-slate-200">
-            1. App Icon（微信小程序图标）
-          </h2>
-          <div className="flex flex-col items-center gap-8">
-            <div className="flex gap-8 items-center">
-              <div className="text-center">
-                <AppIcon size={120} />
-                <p className="text-xs text-slate-500 mt-3">标准尺寸 120×120</p>
+        {/* Logo展示区 - 新设计 */}
+        <section className="bg-white rounded-2xl p-12 shadow-lg">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">Logo 设计</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* 深色版本 */}
+            <div className="space-y-6">
+              <div className="bg-white p-8 rounded-xl border-2 border-gray-200 flex flex-col items-center gap-6">
+                <Logo variant="dark" size="xl" />
+                <div className="text-center">
+                  <h3 className="font-semibold text-slate-900 mb-1">深色版本</h3>
+                  <p className="text-sm text-gray-500">用于浅色背景</p>
+                </div>
               </div>
-              <div className="text-center">
-                <AppIcon size={80} />
-                <p className="text-xs text-slate-500 mt-3">中尺寸 80×80</p>
-              </div>
-              <div className="text-center">
-                <AppIcon size={60} />
-                <p className="text-xs text-slate-500 mt-3">小尺寸 60×60</p>
+              
+              {/* 不同尺寸展示 */}
+              <div className="bg-gray-50 p-6 rounded-xl">
+                <p className="text-sm font-medium text-gray-700 mb-4">尺寸变体：</p>
+                <div className="flex items-end gap-6 justify-center">
+                  <div className="text-center space-y-2">
+                    <Logo variant="dark" size="sm" />
+                    <span className="text-xs text-gray-500">Small</span>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <Logo variant="dark" size="md" />
+                    <span className="text-xs text-gray-500">Medium</span>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <Logo variant="dark" size="lg" />
+                    <span className="text-xs text-gray-500">Large</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="text-sm text-slate-600 max-w-lg">
-              <p className="mb-2">
-                <strong>设计说明：</strong>
-              </p>
-              <ul className="list-disc list-inside space-y-1 text-slate-600">
-                <li>深色渐变背景（深蓝灰 → 深灰蓝）</li>
-                <li>白色字母 N 为核心视觉</li>
-                <li>右上角蓝色点暗示"前线/洞察"</li>
-                <li>20%圆角保持现代感</li>
-              </ul>
+
+            {/* 浅色版本 */}
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-xl flex flex-col items-center gap-6">
+                <Logo variant="light" size="xl" />
+                <div className="text-center">
+                  <h3 className="font-semibold text-white mb-1">浅色版本</h3>
+                  <p className="text-sm text-gray-400">用于深色背景</p>
+                </div>
+              </div>
+              
+              {/* 不同尺寸展示 */}
+              <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-6 rounded-xl">
+                <p className="text-sm font-medium text-gray-300 mb-4">尺寸变体：</p>
+                <div className="flex items-end gap-6 justify-center">
+                  <div className="text-center space-y-2">
+                    <Logo variant="light" size="sm" />
+                    <span className="text-xs text-gray-400">Small</span>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <Logo variant="light" size="md" />
+                    <span className="text-xs text-gray-400">Medium</span>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <Logo variant="light" size="lg" />
+                    <span className="text-xs text-gray-400">Large</span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* 设计说明 */}
+          <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl">
+            <h4 className="font-semibold text-blue-900 mb-3">✨ 设计理念</h4>
+            <ul className="space-y-2 text-sm text-blue-800">
+              <li>• <strong>几何化"N"字母</strong>：现代简约，专业稳重</li>
+              <li>• <strong>蓝色渐变斜杠</strong>：AI科技感，数据流动的视觉隐喻</li>
+              <li>• <strong>橙色装饰元素</strong>：重要信息强调，呼应品牌配色</li>
+              <li>• <strong>粒子与圆环</strong>：神经网络、数据连接的抽象表达</li>
+              <li>• <strong>能量箭头</strong>：实时动态、快速获取信息的符号</li>
+            </ul>
           </div>
         </section>
 
-        {/* Section 2: Logo Variations */}
-        <section className="bg-white rounded-2xl shadow-md p-8">
-          <h2 className="text-xl font-semibold text-slate-900 mb-6 pb-3 border-b border-slate-200">
-            2. Logo 变体
-          </h2>
+        {/* 应用图标展示 */}
+        <section className="bg-white rounded-2xl p-12 shadow-lg">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">应用图标</h2>
           
-          {/* Horizontal - Light */}
-          <div className="mb-8">
-            <p className="text-sm font-medium text-slate-700 mb-4">横版 Logo（浅色背景）</p>
-            <div className="bg-white border border-slate-200 rounded-lg p-8 flex items-center justify-center gap-8">
-              <Logo variant="horizontal" size="small" theme="light" />
-              <Logo variant="horizontal" size="medium" theme="light" />
-              <Logo variant="horizontal" size="large" theme="light" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center space-y-3">
+              <div className="bg-gradient-to-br from-blue-600 to-cyan-500 p-6 rounded-3xl mx-auto w-32 h-32 flex items-center justify-center shadow-xl">
+                <Logo variant="light" size="lg" />
+              </div>
+              <p className="text-sm text-gray-600">iOS风格</p>
             </div>
-            <p className="text-xs text-slate-500 mt-2">适用场景：白色背景、浅色界面</p>
-          </div>
-
-          {/* Horizontal - Dark */}
-          <div className="mb-8">
-            <p className="text-sm font-medium text-slate-700 mb-4">横版 Logo（深色背景）</p>
-            <div className="bg-slate-800 rounded-lg p-8 flex items-center justify-center gap-8">
-              <Logo variant="horizontal" size="small" theme="dark" />
-              <Logo variant="horizontal" size="medium" theme="dark" />
-              <Logo variant="horizontal" size="large" theme="dark" />
+            
+            <div className="text-center space-y-3">
+              <div className="bg-white border-2 border-gray-200 p-6 rounded-2xl mx-auto w-32 h-32 flex items-center justify-center shadow-lg">
+                <Logo variant="dark" size="lg" />
+              </div>
+              <p className="text-sm text-gray-600">简约白底</p>
             </div>
-            <p className="text-xs text-slate-500 mt-2">适用场景：深色背景、页面顶部导航</p>
-          </div>
-
-          {/* Icon Only */}
-          <div className="mb-8">
-            <p className="text-sm font-medium text-slate-700 mb-4">纯图标（无文字）</p>
-            <div className="bg-white border border-slate-200 rounded-lg p-8 flex items-center justify-center gap-8">
-              <Logo variant="icon-only" size="small" theme="light" />
-              <Logo variant="icon-only" size="medium" theme="light" />
-              <Logo variant="icon-only" size="large" theme="light" />
+            
+            <div className="text-center space-y-3">
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-3xl mx-auto w-32 h-32 flex items-center justify-center shadow-xl">
+                <Logo variant="light" size="lg" />
+              </div>
+              <p className="text-sm text-gray-600">暗色主题</p>
             </div>
-            <p className="text-xs text-slate-500 mt-2">适用场景：极小空间、水印、装饰性用途</p>
-          </div>
-
-          {/* Square */}
-          <div>
-            <p className="text-sm font-medium text-slate-700 mb-4">方形 Logo（图标+文字垂直）</p>
-            <div className="bg-white border border-slate-200 rounded-lg p-8 flex items-center justify-center gap-12">
-              <Logo variant="square" size="small" theme="light" />
-              <Logo variant="square" size="medium" theme="light" />
+            
+            <div className="text-center space-y-3">
+              <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-6 rounded-3xl mx-auto w-32 h-32 flex items-center justify-center shadow-xl">
+                <Logo variant="light" size="lg" />
+              </div>
+              <p className="text-sm text-gray-600">强调色版</p>
             </div>
-            <p className="text-xs text-slate-500 mt-2">适用场景：社交媒体头像、正方形空间</p>
           </div>
         </section>
 

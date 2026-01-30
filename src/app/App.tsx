@@ -76,8 +76,7 @@ export default function App() {
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
 
-  // Temporary: Show brand showcase with Cmd/Ctrl + B
-  // Must be at the top level, before any conditional returns
+  // Show brand showcase with Cmd/Ctrl + B
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
@@ -90,7 +89,17 @@ export default function App() {
   }, [showBrandShowcase]);
 
   if (showBrandShowcase) {
-    return <BrandShowcase />;
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowBrandShowcase(false)}
+          className="fixed top-4 right-4 z-50 px-4 py-2 bg-slate-800 text-white rounded-lg shadow-lg hover:bg-slate-700 transition-colors"
+        >
+          返回应用
+        </button>
+        <BrandShowcase />
+      </div>
+    );
   }
 
   const handleNewsClick = (id: string) => {

@@ -1,6 +1,60 @@
-<svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 主体N字母 - 深色版本 -->
-  <path d="M8 40V8H14L34 30.5V8H40V40H34L14 17.5V40H8Z" fill="#1e293b"/>
-  <!-- 虚线分割 -->
-  <path d="M14 8L34 30.5" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2"/>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定义渐变色 - AI科技感 -->
+  <defs>
+    <linearGradient id="nGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景装饰圆环 - AI动感 -->
+  <circle cx="60" cy="60" r="52" stroke="url(#nGradient)" stroke-width="1" opacity="0.15" fill="none"/>
+  <circle cx="60" cy="60" r="46" stroke="url(#nGradient)" stroke-width="0.5" opacity="0.1" fill="none"/>
+  
+  <!-- 主体N字母 - 现代几何风格 -->
+  <g>
+    <!-- 左竖 -->
+    <rect x="28" y="32" width="8" height="56" fill="#1e293b" rx="1"/>
+    
+    <!-- 斜杠 - 带动感 -->
+    <path d="M34 32 L84 88 L84 79 L42.5 32 Z" fill="url(#nGradient)"/>
+    
+    <!-- 右竖 -->
+    <rect x="84" y="32" width="8" height="56" fill="#1e293b" rx="1"/>
+    
+    <!-- 顶部装饰线 - AI数据流 -->
+    <path d="M28 32 L36 32 M42 32 L50 32 M56 32 L64 32" 
+          stroke="url(#accentGradient)" 
+          stroke-width="2" 
+          stroke-linecap="round"/>
+    
+    <!-- 底部装饰点 - 神经网络感 -->
+    <circle cx="32" cy="88" r="2" fill="url(#accentGradient)" opacity="0.8"/>
+    <circle cx="40" cy="88" r="1.5" fill="url(#accentGradient)" opacity="0.6"/>
+    <circle cx="88" cy="88" r="2" fill="url(#accentGradient)" opacity="0.8"/>
+    <circle cx="80" cy="88" r="1.5" fill="url(#accentGradient)" opacity="0.6"/>
+  </g>
+  
+  <!-- 动态粒子效果 - 科技感 -->
+  <g opacity="0.4">
+    <circle cx="24" cy="40" r="1" fill="#3b82f6"/>
+    <circle cx="96" cy="48" r="1.5" fill="#06b6d4"/>
+    <circle cx="98" cy="72" r="1" fill="#3b82f6"/>
+    <circle cx="22" cy="80" r="1.5" fill="#06b6d4"/>
+  </g>
+  
+  <!-- 右上角能量标记 -->
+  <path d="M94 36 L98 40 L94 44" 
+        stroke="url(#accentGradient)" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"
+        opacity="0.7"/>
 </svg>
