@@ -1,0 +1,6 @@
+<svg width="96" height="96" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 主体N字母 - 深色版本 -->
+  <path d="M8 40V8H14L34 30.5V8H40V40H34L14 17.5V40H8Z" fill="#1e293b"/>
+  <!-- 虚线分割 -->
+  <path d="M14 8L34 30.5" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2"/>
+</svg>
