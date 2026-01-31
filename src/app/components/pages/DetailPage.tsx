@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ExternalLink, Star } from 'lucide-react';
-import { CategoryTag } from '../CategoryTag';
+import { CategoryTag } from '@/app/components/shared/CategoryTag';
+import { LevelBadge } from '@/app/components/shared/LevelBadge';
 
 interface DetailPageProps {
   onBack: () => void;
@@ -31,7 +32,8 @@ export function DetailPage({ onBack }: DetailPageProps) {
         {/* Title Section */}
         <div className="mb-5">
           <div className="flex items-center gap-2 mb-3">
-            <CategoryTag label="IRニュース" variant="IR" />
+            <CategoryTag category="ir" variant="small" />
+            <LevelBadge level="s" variant="compact" />
             <span className="text-xs text-gray-500">2026年1月29日 09:00</span>
           </div>
           <h1 className="text-xl font-semibold text-gray-900 leading-snug">

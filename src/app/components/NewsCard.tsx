@@ -1,49 +1,57 @@
 import React from 'react';
-import { CategoryTag } from './CategoryTag';
+import { CategoryTag, CategoryKey } from './shared/CategoryTag';
+import { LevelBadge, LevelKey } from './shared/LevelBadge';
 
 interface NewsCardProps {
   id: string;
-  category: 'IR' | 'AI' | 'finance' | 'hr' | 'governance' | 'default';
-  categoryLabel: string;
+  category: CategoryKey;
+  categoryLabel?: string;
   titleJp: string;
   summaryCn: string;
-  importance: 'S' | 'A' | 'B';
+  importance: LevelKey;
+  publishTime?: string;
+  source?: string;
   onClick?: () => void;
 }
 
 export function NewsCard({ 
   category, 
-  categoryLabel, 
   titleJp, 
   summaryCn, 
-  importance, 
+  importance,
+  publishTime,
+  source,
   onClick 
 }: NewsCardProps) {
-  const importanceColors = {
-    S: 'bg-orange-500 text-white',
-    A: 'bg-blue-600 text-white',
-    B: 'bg-slate-400 text-white'
-  };
-
   return (
     <div 
-      className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
+      className="bg-white rounded-2xl p-3 shadow-sm border border-slate-100 hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
       onClick={onClick}
     >
-      <div className="flex items-start justify-between mb-3">
-        <CategoryTag label={categoryLabel} variant={category} />
-        <span className={`px-2 py-0.5 text-xs font-semibold rounded ${importanceColors[importance]}`}>
-          {importance}
-        </span>
+      {/* 顶部信息栏：分类标签 + 等级徽章 */}
+      <div className="flex items-center justify-between mb-2">
+        <CategoryTag category={category} variant="small" />
+        <LevelBadge level={importance} variant="standard" />
       </div>
       
-      <h3 className="text-base font-medium text-gray-900 mb-2 line-clamp-2">
+      {/* 标题（日文） */}
+      <h3 className="text-base font-semibold text-slate-800 leading-snug mb-1 line-clamp-2">
         {titleJp}
       </h3>
       
-      <p className="text-sm text-gray-500 line-clamp-2">
+      {/* 摘要（中文） */}
+      <p className="text-sm text-gray-600 leading-relaxed mb-2 line-clamp-2">
         {summaryCn}
       </p>
+
+      {/* 底部信息：来源 · 时间 */}
+      {(source || publishTime) && (
+        <div className="flex items-center gap-1 text-xs text-gray-400">
+          {source && <span>{source}</span>}
+          {source && publishTime && <span>·</span>}
+          {publishTime && <span>{publishTime}</span>}
+        </div>
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { SettingsPage } from '@/app/components/pages/SettingsPage';
 import { DetailPage } from '@/app/components/pages/DetailPage';
 import { BookmarksPage } from '@/app/components/pages/BookmarksPage';
 import { BrandShowcase } from '@/app/components/brand/BrandShowcase';
+import { UIShowcasePage } from '@/app/components/pages/UIShowcasePage';
 import { SettingsProvider } from '@/app/contexts/SettingsContext';
 
 // Error boundary to catch any runtime errors
@@ -71,22 +72,44 @@ class ErrorBoundary extends React.Component<
 export default function App() {
   const [showSplash, setShowSplash] = useState(false); // Disabled splash for testing
   const [showBrandShowcase, setShowBrandShowcase] = useState(false);
+  const [showUIShowcase, setShowUIShowcase] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [showDetail, setShowDetail] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
 
   // Show brand showcase with Cmd/Ctrl + B
+  // Show UI showcase with Cmd/Ctrl + U
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
         e.preventDefault();
         setShowBrandShowcase(!showBrandShowcase);
+        setShowUIShowcase(false);
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
+        e.preventDefault();
+        setShowUIShowcase(!showUIShowcase);
+        setShowBrandShowcase(false);
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [showBrandShowcase]);
+  }, [showBrandShowcase, showUIShowcase]);
+
+  if (showUIShowcase) {
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowUIShowcase(false)}
+          className="fixed top-4 right-4 z-50 px-4 py-2 bg-slate-800 text-white rounded-lg shadow-lg hover:bg-slate-700 transition-colors"
+        >
+          返回应用
+        </button>
+        <UIShowcasePage />
+      </div>
+    );
+  }
 
   if (showBrandShowcase) {
     return (
@@ -146,6 +169,7 @@ export default function App() {
             {activeTab === 'category' && <CategoryPage onNewsClick={handleNewsClick} />}
             {activeTab === 'audio' && <AudioPage />}
             {activeTab === 'settings' && <SettingsPage onShowBookmarks={handleShowBookmarks} />}
+            {activeTab === 'ui' && <UIShowcasePage />}
           </div>
 
           {/* Tab Bar */}

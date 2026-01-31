@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, Star } from 'lucide-react';
 import { useSettings } from '@/app/contexts/SettingsContext';
+import { CategoryChecklist, CategoryKey } from '@/app/components/shared/CategoryTag';
 
 interface SettingsPageProps {
   onShowBookmarks: () => void;
@@ -9,18 +10,34 @@ interface SettingsPageProps {
 export function SettingsPage({ onShowBookmarks }: SettingsPageProps) {
   const { selectedTopics, setSelectedTopics, language, setLanguage } = useSettings();
 
-  const topics = [
-    { id: 'IR', label: 'IR情报', desc: '财报、业绩发布等', required: true },
-    { id: 'AI', label: 'AI・数字化', desc: '技术创新、新产品发布', required: false },
-    { id: 'finance', label: '证券/金融', desc: '金融业务动态', required: false },
-    { id: 'hr', label: '人事', desc: '组织架构、人事变动', required: false },
-    { id: 'governance', label: '治理', desc: 'ESG、可持续发展', required: false },
-  ];
+  // 映射旧的topic ID到新的CategoryKey
+  const topicToCategoryMap: Record<string, CategoryKey> = {
+    'IR': 'ir',
+    'AI': 'ai',
+    'finance': 'finance',
+    'hr': 'hr',
+    'governance': 'governance'
+  };
 
-  const toggleTopic = (topicId: string) => {
-    // IR is required and cannot be unchecked
-    if (topicId === 'IR') return;
-    
+  const categoryToTopicMap: Record<CategoryKey, string> = {
+    'ir': 'IR',
+    'ai': 'AI',
+    'finance': 'finance',
+    'hr': 'hr',
+    'governance': 'governance',
+    'all': 'all'
+  };
+
+  // 将旧的selectedTopics转换为CategoryKey[]
+  const selectedCategories: CategoryKey[] = selectedTopics.map(
+    topic => topicToCategoryMap[topic] || 'ir'
+  );
+
+  const handleCategoryToggle = (category: CategoryKey) => {
+    const topicId = categoryToTopicMap[category];
+    if (!topicId || topicId === 'all') return;
+
+    // 转换回旧的topic系统
     setSelectedTopics(
       selectedTopics.includes(topicId)
         ? selectedTopics.filter((id) => id !== topicId)
@@ -31,16 +48,17 @@ export function SettingsPage({ onShowBookmarks }: SettingsPageProps) {
   return (
     <div className="w-full min-h-screen pb-20 bg-slate-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-800 to-slate-700 text-white px-5 pt-8 pb-6">
-        <h1 className="text-xl font-semibold">设置 / 偏好</h1>
+      <div className="bg-gradient-to-br from-slate-800 to-slate-700 text-white px-5 pt-8 pb-4">
+        <h1 className="text-xl font-semibold mb-1">设置 / 偏好</h1>
+        <p className="text-sm text-slate-300 font-light">个性化您的阅读体验</p>
       </div>
 
-      <div className="px-5 py-5 space-y-6">
+      <div className="px-4 py-5 space-y-4">
         {/* My Bookmarks */}
         <section>
           <button
             onClick={onShowBookmarks}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg p-5 flex items-center justify-between hover:from-amber-600 hover:to-orange-600 transition-all shadow-md"
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-5 flex items-center justify-between hover:from-amber-600 hover:to-orange-600 transition-all shadow-md active:scale-[0.98]"
           >
             <div className="flex items-center gap-3">
               <Star className="w-6 h-6" fill="currentColor" />
@@ -55,65 +73,34 @@ export function SettingsPage({ onShowBookmarks }: SettingsPageProps) {
           </button>
         </section>
 
-        {/* Topic Preferences */}
-        <section className="bg-white rounded-lg border border-gray-200 p-5">
-          <h2 className="text-sm font-semibold text-gray-900 mb-1">关注主题</h2>
-          <p className="text-xs text-gray-500 mb-4">选择您关注的信息类别（可多选）</p>
-          
-          <div className="space-y-2">
-            {topics.map((topic) => {
-              const isSelected = selectedTopics.includes(topic.id);
-              const isRequired = topic.required;
-              return (
-                <button
-                  key={topic.id}
-                  onClick={() => toggleTopic(topic.id)}
-                  disabled={isRequired}
-                  className={`w-full flex items-center justify-between p-4 rounded-lg border-2 transition-all ${
-                    isSelected
-                      ? 'border-slate-800 bg-slate-50'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  } ${isRequired ? 'opacity-100' : ''}`}
-                >
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
-                      {topic.label}
-                      {isRequired && (
-                        <span className="ml-2 text-xs text-gray-500">(必选)</span>
-                      )}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">{topic.desc}</p>
-                  </div>
-                  <div
-                    className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${
-                      isSelected ? 'bg-slate-800' : 'border-2 border-gray-300'
-                    }`}
-                  >
-                    {isSelected && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+        {/* Topic Preferences - 使用新的CategoryChecklist组件 */}
+        <section>
+          <CategoryChecklist
+            selectedCategories={selectedCategories}
+            onToggle={handleCategoryToggle}
+            showDescriptions={true}
+          />
         </section>
 
         {/* Language Settings */}
-        <section className="bg-white rounded-lg border border-gray-200 p-5">
-          <h2 className="text-sm font-semibold text-gray-900 mb-1">显示语言</h2>
-          <p className="text-xs text-gray-500 mb-4">选择快讯内容的语言显示方式</p>
+        <section className="bg-white rounded-2xl p-4">
+          <div className="mb-3">
+            <h2 className="text-base font-semibold text-slate-800 mb-1">显示语言</h2>
+            <p className="text-xs text-slate-500">选择快讯内容的语言显示方式</p>
+          </div>
           
           <div className="space-y-2">
             <button
               onClick={() => setLanguage('both')}
-              className={`w-full flex items-center justify-between p-4 rounded-lg border-2 transition-all ${
+              className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                 language === 'both'
                   ? 'border-slate-800 bg-slate-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  : 'border-slate-200 bg-white hover:border-slate-300'
               }`}
             >
               <div className="text-left">
-                <p className="text-sm font-medium text-gray-900">日文 + 中文</p>
-                <p className="text-xs text-gray-500 mt-0.5">同时显示原文与翻译（推荐）</p>
+                <p className="text-sm font-medium text-slate-800">日文 + 中文</p>
+                <p className="text-xs text-slate-500 mt-0.5">同时显示原文与翻译（推荐）</p>
               </div>
               <div
                 className={`w-5 h-5 rounded-full flex items-center justify-center ${
@@ -128,15 +115,15 @@ export function SettingsPage({ onShowBookmarks }: SettingsPageProps) {
 
             <button
               onClick={() => setLanguage('jp')}
-              className={`w-full flex items-center justify-between p-4 rounded-lg border-2 transition-all ${
+              className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                 language === 'jp'
                   ? 'border-slate-800 bg-slate-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  : 'border-slate-200 bg-white hover:border-slate-300'
               }`}
             >
               <div className="text-left">
-                <p className="text-sm font-medium text-gray-900">仅日文</p>
-                <p className="text-xs text-gray-500 mt-0.5">只显示日文原文</p>
+                <p className="text-sm font-medium text-slate-800">仅日文</p>
+                <p className="text-xs text-slate-500 mt-0.5">只显示日文原文</p>
               </div>
               <div
                 className={`w-5 h-5 rounded-full flex items-center justify-center ${
@@ -152,7 +139,7 @@ export function SettingsPage({ onShowBookmarks }: SettingsPageProps) {
         </section>
 
         {/* Brand Identity Footer */}
-        <section className="text-center py-6 border-t border-gray-200">
+        <section className="text-center py-6 border-t border-slate-200">
           <div className="flex flex-col items-center gap-2">
             <h3 className="text-base font-semibold text-slate-800 tracking-tight">N前线</h3>
             <div className="space-y-1">

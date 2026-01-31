@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Play, Pause } from 'lucide-react';
+import { AudioTimeFilter } from '@/app/components/shared/TimeFilter';
 
 export function AudioPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
   const [progress, setProgress] = useState(35);
   const [currentLanguage, setCurrentLanguage] = useState<'jp' | 'cn'>('cn');
+  const [audioFilter, setAudioFilter] = useState<'recent7' | 'recent30'>('recent7');
 
-  // Generate last 14 days of audio history
-  const generateAudioHistory = () => {
+  // Generate audio history based on filter
+  const generateAudioHistory = (days: number) => {
     const history = [];
     const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     
-    for (let i = 1; i <= 14; i++) {
+    for (let i = 1; i <= days; i++) {
       const date = new Date();
       date.setDate(date.getDate() - i);
       const weekday = weekdays[date.getDay()];
@@ -29,7 +31,7 @@ export function AudioPage() {
     return history;
   };
 
-  const audioHistory = generateAudioHistory();
+  const audioHistory = generateAudioHistory(audioFilter === 'recent7' ? 7 : 30);
 
   const speeds = [1.0, 1.2, 1.5];
 
@@ -134,7 +136,13 @@ export function AudioPage() {
 
       {/* History */}
       <div className="px-5">
-        <h3 className="text-sm font-semibold text-gray-700 mb-3">历史音频</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold text-gray-700">历史音频</h3>
+          <AudioTimeFilter
+            activeFilter={audioFilter}
+            onFilterChange={setAudioFilter}
+          />
+        </div>
         <div className="space-y-2">
           {audioHistory.map((item, index) => (
             <div
